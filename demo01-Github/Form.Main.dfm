@@ -23,7 +23,6 @@ object Form1: TForm1
     Align = alLeft
     Caption = 'GroupBox1'
     TabOrder = 0
-    ExplicitHeight = 211
     object Button1: TButton
       AlignWithMargins = True
       Left = 5
@@ -40,9 +39,19 @@ object Form1: TForm1
       Top = 49
       Width = 175
       Height = 25
-      Action = actQueryRepo
+      Action = actQueryRepoList
       Align = alTop
       TabOrder = 1
+    end
+    object Button3: TButton
+      AlignWithMargins = True
+      Left = 5
+      Top = 80
+      Width = 175
+      Height = 25
+      Action = actGetIssuesList
+      Align = alTop
+      TabOrder = 2
     end
   end
   object Memo1: TMemo
@@ -71,13 +80,13 @@ object Form1: TForm1
       Caption = 'actQueryUser'
       OnExecute = actQueryUserExecute
     end
-    object actQueryRepo: TAction
+    object actQueryRepoList: TAction
       Caption = 'actQueryRepos'
-      OnExecute = actQueryRepoExecute
+      OnExecute = actQueryRepoListExecute
     end
-    object Action3: TAction
-      Caption = 'Action3'
-      OnExecute = Action3Execute
+    object actGetIssuesList: TAction
+      Caption = 'actGetIssuesList'
+      OnExecute = actGetIssuesListExecute
     end
   end
 end

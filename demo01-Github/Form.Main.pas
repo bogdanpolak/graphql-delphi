@@ -15,14 +15,15 @@ type
     GroupBox1: TGroupBox;
     ActionList1: TActionList;
     actQueryUser: TAction;
-    actQueryRepo: TAction;
-    Action3: TAction;
+    actQueryRepoList: TAction;
+    actGetIssuesList: TAction;
     Memo1: TMemo;
     Button2: TButton;
+    Button3: TButton;
     procedure FormCreate(Sender: TObject);
     procedure actQueryUserExecute(Sender: TObject);
-    procedure actQueryRepoExecute(Sender: TObject);
-    procedure Action3Execute(Sender: TObject);
+    procedure actQueryRepoListExecute(Sender: TObject);
+    procedure actGetIssuesListExecute(Sender: TObject);
   private
     GraphQL: TGraphQL;
     procedure DoCallGitHubAPI(const GraphQLQuery: string;
@@ -41,6 +42,7 @@ uses
   System.JSON;
 
 {$INCLUDE SecureConsts.inc}
+
 const
   // ------------------------------------------------------------------------
   // README:
@@ -90,7 +92,7 @@ begin
   DoCallGitHubAPI(Query);
 end;
 
-procedure TForm1.actQueryRepoExecute(Sender: TObject);
+procedure TForm1.actQueryRepoListExecute(Sender: TObject);
 var
   Query: string;
   Variables: string;
@@ -102,9 +104,16 @@ begin
   DoCallGitHubAPI(Query, Variables);
 end;
 
-procedure TForm1.Action3Execute(Sender: TObject);
+procedure TForm1.actGetIssuesListExecute(Sender: TObject);
+var
+  Query: string;
 begin
-  // x
+  Query := 'query GetIssuesFromDelphiDataproxy {' +
+    '  repository (owner:\"bogdanpolak\", name:\"delphi-dataproxy\") { ' +
+    sGraphNewLine +
+    '    issues(first:100) { totalCount nodes{ title url createdAt } }' +
+    sGraphNewLine + '  } }';
+  DoCallGitHubAPI(Query);
 end;
 
 end.
